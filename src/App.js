@@ -1,24 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useContext } from 'react';
+import { ThemeProvider } from '@material-ui/core/styles'
+import { BoxContext } from './HOCs/boxContext'
+import { Grid } from '@material-ui/core';
+
+import './styles/ToggleBoards.module.css'
+import ToggleMain from './ToggleBoards/ToggleMain'
+import BoxOne from './ToggleBoards/BoxOne';
+import BoxTwo from './ToggleBoards/BoxTwo'
 
 function App() {
+
+  const [boxState] = useContext(BoxContext)
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={boxState.theme}>
+      
+        <Grid container spacing={2}>
+          <Grid item>
+            <ToggleMain />
+          </Grid>
+          <Grid item>
+            {boxState.formCheckOne ? <BoxOne /> : null}
+          </Grid>          
+          <Grid item>
+            {boxState.formCheckTwo ? <BoxTwo /> : null}
+          </Grid>
+        </Grid>
+      
+    </ThemeProvider>
   );
 }
 
